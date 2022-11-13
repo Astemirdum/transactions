@@ -65,4 +65,5 @@ upgrade:
 
 .PHONY: mocks
 mocks:
-	cd internal/service/mocks/; go generate;
+	cd tx-user/internal/handler; go generate;
+	cd tx-balance/internal/handler; go generate;
