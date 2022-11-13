@@ -189,7 +189,7 @@ linters:
     - unused # Checks Go code for unused constants, variables, functions and types
     - varcheck # Finds unused global variables and constants
     - wastedassign # wastedassign finds wasted assignment statements.
-    - whitespace # Tool for detection of leading and trailing whitespace
+    #- whitespace # Tool for detection of leading and trailing whitespace
 
 issues:
   max-issues-per-linter: 0
