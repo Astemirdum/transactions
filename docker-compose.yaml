@@ -1,0 +1,108 @@
+version: '3.8'
+
+services:
+  balance:
+    container_name: balance
+    restart: unless-stopped
+    build:
+      context: ./
+      dockerfile: balance.Dockerfile
+    ports:
+      - "8082:8082"
+    depends_on:
+      - balancedb
+      - js
+    environment:
+      - LOG_LEVEL=debug
+    networks:
+      - net
+    deploy:
+      resources:
+        limits:
+          cpus: '0.9'
+          memory: 500M
+
+  user:
+    container_name: user
+    restart: unless-stopped
+    build:
+      context: ./
+      dockerfile: user.Dockerfile
+    ports:
+      - "8081:8081"
+    depends_on:
+      - userdb
+      - redis
+    environment:
+      - LOG_LEVEL=debug
+    networks:
+      - net
+    deploy:
+      resources:
+        limits:
+          cpus: '0.4'
+          memory: 300M
+
+  userdb:
+    container_name: userdb
+    restart: unless-stopped
+    image: postgres:latest
+    volumes:
+      - user_db_volume:/var/lib/postgresql/data
+      - ./tx-user/init-database.sh:/docker-entrypoint-initdb.d/init-database.sh
+    ports:
+      - "5432:5432"
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+      POSTGRES_DB: postgres
+      APP_DB_USER: tx_user
+      APP_DB_PASSWORD: ${DB_PASSWORD_USER}
+      APP_DB_NAME: tx_user
+    networks:
+      - net
+
+  balancedb:
+    container_name: balancedb
+    restart: unless-stopped
+    image: postgres:latest
+    volumes:
+      - balance_db_volume:/var/lib/postgresql/data
+      - ./tx-balance/init-database.sh:/docker-entrypoint-initdb.d/init-database.sh
+    ports:
+      - "5433:5432"
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+      POSTGRES_DB: postgres
+      APP_DB_USER: tx_balance
+      APP_DB_PASSWORD: ${DB_PASSWORD_BALANCE}
+      APP_DB_NAME: tx_balance
+    networks:
+      - net
+
+  js:
+    container_name: js
+    restart: unless-stopped
+    image: nats:latest
+    command: "-js"
+    ports:
+      - "4222:4222"
+    networks:
+      - net
+
+  redis:
+    restart: unless-stopped
+    image: redis:6.2.6
+    container_name: redis
+    ports:
+      - "6379:6379"
+    networks:
+      - net
+
+volumes:
+  user_db_volume:
+  balance_db_volume:
+
+networks:
+  net:

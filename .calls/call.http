@@ -1,0 +1,82 @@
+#### Запрос в публичный сервер
+
+
+# curl
+#    --header "Content-Type: application/json"
+#    --data '{"email": "lol1@kek.ru", "password": "lol1"}'
+#    http://localhost:8081/grpc/auth/user.v1.UserService/SignUp
+POST http://localhost:8081/grpc/auth/user.v1.UserService/SignUp
+Content-Type: application/json
+
+{
+  "user": {
+    "email": "lol164@kek.ru",
+    "password": "lol155"
+  }
+}
+
+###
+
+POST http://localhost:8081/grpc/auth/user.v1.UserService/SignIn
+Content-Type: application/json
+
+{
+  "user": {
+    "email": "lol164@kek.ru",
+    "password": "lol155"
+  }
+}
+
+###
+
+POST http://localhost:8081/grpc/auth/user.v1.UserService/Auth
+Content-Type: application/json
+
+{
+  "sessionId": {
+    "id": "MRAjWwhTHc"
+  }
+}
+
+###
+
+POST http://localhost:8081/grpc/auth/user.v1.UserService/SignOut
+Content-Type: application/json
+
+{
+  "sessionId": {
+    "id": "MRAjWwhTHc"
+  }
+}
+###
+
+###
+
+#POST http://localhost:8082/grpc/balance/balance.v1.BalanceService/CreateBalance
+#Content-Type: application/json
+#
+#{"userId": 1}
+
+###
+
+###
+
+POST http://localhost:8082/grpc/balance/balance.v1.BalanceService/GetBalance
+Content-Type: application/json
+Authorization: MRAjWwhTHc
+
+{}
+
+###
+
+###
+
+POST http://localhost:8082/grpc/balance/balance.v1.BalanceService/CashOut
+Content-Type: application/json
+Authorization: MRAjWwhTHc
+
+{"cash": 50}
+
+###
+
+

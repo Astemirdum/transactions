@@ -1,0 +1,61 @@
+syntax = 'proto3';
+
+package user.v1;
+
+import "validate/validate.proto";
+
+option go_package = 'github.com/Astemirdum/transactions/proto/user/v1;userv1';
+
+message User {
+  string email = 1 [(validate.rules).string.email = true];
+  string password = 2 [(validate.rules).string = {
+    min_len: 5,
+    max_len: 10
+  }];
+}
+
+message SignUpRequest {
+  User user = 1;
+}
+
+message Balance {
+  int64 cash = 1;
+}
+
+message SignUpResponse {
+  int32 user_id = 1;
+  Balance balance = 2;
+}
+
+message SessionID {
+  string id = 1 [(validate.rules).string.len = 10];
+}
+
+message SignInRequest {
+  User user = 1;
+}
+
+message SignInResponse {
+  SessionID session_id = 1;
+}
+
+message AuthRequest {
+  SessionID session_id = 1;
+}
+
+message AuthResponse {
+  int32 user_id = 1;
+}
+
+message SignOutRequest {
+  SessionID session_id = 1;
+}
+
+message SignOutResponse {}
+
+service UserService {
+  rpc SignUp(SignUpRequest) returns (SignUpResponse) {}
+  rpc SignIn(SignInRequest) returns (SignInResponse) {}
+  rpc SignOut(SignOutRequest) returns (SignOutResponse) {}
+  rpc Auth(AuthRequest) returns (AuthResponse) {}
+}

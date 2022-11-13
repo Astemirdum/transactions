@@ -1,0 +1,22 @@
+
+server:
+  host: "0.0.0.0" # "localhost"
+  port: 8081
+  timeout: "5s"
+
+balanceClient:
+  host: "balance" # balance
+  port: 8082
+  timeout: "5s"
+
+db:
+  host: "userdb" #userdb
+  port: 5432
+  user: "tx_user"
+  dbname: "tx_user"
+
+redis:
+  host: "redis" # redis
+  port: 6379
+  passwd: ""
+  sessionTTL: "15m"

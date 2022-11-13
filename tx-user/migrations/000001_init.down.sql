@@ -1,0 +1,2 @@
+
+DROP SCHEMA tv1 CASCADE;

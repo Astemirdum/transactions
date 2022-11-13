@@ -1,0 +1,14 @@
+version: v1
+breaking:
+  use:
+    - FILE
+lint:
+  use:
+    - DEFAULT
+  ignore:
+    - connectext/grpc/reflection/v1alpha/reflection.proto
+    - connectext/grpc/status/v1/status.proto
+deps:
+  - buf.build/googleapis/googleapis
+  - buf.build/envoyproxy/protoc-gen-validate
+

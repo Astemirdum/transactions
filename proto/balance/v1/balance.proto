@@ -1,0 +1,33 @@
+syntax = 'proto3';
+
+package balance.v1;
+
+import "validate/validate.proto";
+
+option go_package = 'github.com/Astemirdum/transactions/proto/balance/v1;balancev1';
+
+message CreateBalanceRequest {
+  int32 user_id = 1 [(validate.rules).int32.gte = 0];
+}
+
+message CreateBalanceResponse {
+  int64 cash = 1;
+}
+
+message CashOutRequest {
+  int64 cash = 1 [(validate.rules).int64.gt = 0];
+}
+
+message CashOutResponse {}
+
+message GetBalanceRequest {}
+
+message GetBalanceResponse {
+  int64 cash = 1;
+}
+
+service BalanceService {
+  rpc CreateBalance(CreateBalanceRequest) returns (CreateBalanceResponse) {}
+  rpc GetBalance(GetBalanceRequest) returns (GetBalanceResponse) {}
+  rpc CashOut(CashOutRequest) returns (CashOutResponse) {}
+}
