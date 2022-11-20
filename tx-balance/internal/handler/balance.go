@@ -18,7 +18,6 @@ func (h *Handler) CreateBalance(
 	ctx context.Context,
 	req *connect.Request[balancev1.CreateBalanceRequest],
 ) (*connect.Response[balancev1.CreateBalanceResponse], error) {
-
 	if err := h.svc.CreateBalance(ctx, int(req.Msg.UserId)); err != nil {
 		return nil, connect.NewError(connect.CodeInternal, err)
 	}
