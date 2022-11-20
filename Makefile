@@ -47,10 +47,10 @@ deps: .deps
 
 .deps:
 	go install github.com/golangci/golangci-lint/cmd/golangci-lint@v1.50.0
-	# go install github.com/bufbuild/buf/cmd/buf@1.8.0
-	go install google.golang.org/protobuf/cmd/protoc-gen-go@1.5.2
-	go install github.com/bufbuild/connect-go/cmd/protoc-gen-connect-go@1.1.0
-	go install google.golang.org/grpc/cmd/protoc-gen-go-grpc@v1.2.0
+	go install github.com/bufbuild/buf/cmd/buf@latest
+	go install google.golang.org/protobuf/cmd/protoc-gen-go@latest
+	go install github.com/bufbuild/connect-go/cmd/protoc-gen-connect-go@1.0.0
+	#go install google.golang.org/grpc/cmd/protoc-gen-go-grpc@v1.2.0
 	go install github.com/envoyproxy/protoc-gen-validate@v0.9.0
 	go install github.com/bufbuild/buf/cmd/protoc-gen-buf-lint@v0.56.0
 	go mod download
